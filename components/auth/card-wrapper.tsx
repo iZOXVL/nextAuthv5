@@ -7,7 +7,7 @@ import {
     CardFooter,
     CardHeader
 } from "@/components/ui/card";
-
+import {motion} from "framer-motion";
 import { Header } from "@/components/auth/header";
 import { Social } from "@/components/auth/social";
 import { BackButton } from "@/components/auth/back-button";
@@ -29,6 +29,11 @@ export const CardWrapper = ({
 
 }: CardWrapperProps) => {
     return(
+    <motion.div
+    initial={{ opacity: 0, scale: 0.5 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 0.5 }}
+    >
         <Card className="w-[400px] shadow-md">
          <CardHeader>
           <Header label={headerLabel} />
@@ -50,5 +55,6 @@ export const CardWrapper = ({
                 />
             </CardFooter>
         </Card>
+        </motion.div>
     );
 };
