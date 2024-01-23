@@ -1,60 +1,43 @@
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/AftDvIasIZS
- */
-import { CardTitle, CardHeader, CardContent, Card } from "@/components/ui/card"
+"use client";
+import { Poppins } from "next/font/google"
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button"
-import { LoginButton } from "@/components/auth/login-button"
+import { LoginButton } from "@/components/auth/login-button";
+import authAnimation from "@/resources/lottie/authAnimation.json"
+import Lottie from "lottie-react";
+import {motion} from "framer-motion";
 
-export default function Component() {
+const font = Poppins({
+ subsets: ["latin"],
+ weight: ["600"]
+});
+export default function Home() {
   return (
-    <main className="flex h-full flex-col items-center  justify-center
+    <main className="flex h-full flex-col items-center  
     bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-900 to-indigo-700">
-    <div className="container mx-auto px-4 md:px-6 lg:px-8 py-12 grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
-      <div className="flex flex-col items-center justify-center">
-        <Card className="w-full lg:max-w-full mx-auto p-10 h-full">
-          <CardHeader>
-            <CardTitle>Contenido Destacado</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <img
-              alt="Imagen Destacada"
-              className="w-full h-64 object-cover rounded-md"
-              height="200"
-              src="/placeholder.svg"
-              style={{
-                aspectRatio: "200/200",
-                objectFit: "cover",
-              }}
-              width="200"
-            />
-            <p className="mt-4 text-center text-gray-600 dark:text-gray-400">
-              Este es un contenido destacado. Puede contener información importante o interesante.
-            </p>
-          </CardContent>
-        </Card>
-      </div>
-      <div className="flex flex-col items-center justify-center">
-        <Card className="w-full lg:max-w-full mx-auto p-14 h-full items-center justify-center ">
-          <CardHeader className="items-center justify-center">
-            <CardTitle style={{ fontSize: '54px'}}>🔐 OAuth 2.0</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-gray-600 dark:text-gray-400 text-justify">
-            Creada con React y Next.js, ofrece una experiencia de usuario ágil y moderna. Integrando Prisma para la gestión de bases de datos y OAuth 2.0 para una autenticación segura, garantizamos rendimiento y seguridad de vanguardia en una sola aplicación.
-            </p>
-            <div className="mt-4 flex justify-center">
-            <LoginButton>
-             <Button variant="default" size="xxl">
-              Acceder
-             </Button>
-            </LoginButton>
-            </div>
-          </CardContent>
-        </Card>
+    <div className="space-y-6">
+    <motion.div
+      initial={{ opacity: 0, scale: 0.5 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 0.5 }} className="w-[350px]  h-[350px] ">
+     <Lottie animationData={authAnimation}/>
+     </motion.div>
+
+      <h1 className={cn(
+        "text-2xl font-semibold text-white drop-shadow-md text-center",
+        font.className, 
+      )}>
+        Servicio de autenticacion
+      </h1>
+      <div className="text-center">
+        <LoginButton>
+        <Button variant="secondary" size="xl">
+          Acceder
+        </Button>
+        </LoginButton>
       </div>
     </div>
+
     </main>
   )
 }
-
