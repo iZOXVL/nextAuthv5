@@ -6,9 +6,19 @@ import { getUserByEmail } from "@/data/users"
 import Github from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 import Spotify from "next-auth/providers/spotify";
+import Twitch from "next-auth/providers/twitch";
+import Discord from "next-auth/providers/discord";
 
 export default {
   providers: [
+    Discord({
+      clientId: process.env.DISCORD_CLIENT_ID,
+      clientSecret: process.env.DISCORD_CLIENT_SECRET,
+    }),
+    Twitch({
+      clientId: process.env.TWITCH_CLIENT_ID,
+      clientSecret: process.env.TWITCH_CLIENT_SECRET,
+    }),
     Spotify({
       clientId: process.env.SPOTIFY_CLIENT_ID,
       clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
