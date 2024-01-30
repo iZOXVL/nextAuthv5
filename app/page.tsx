@@ -13,9 +13,9 @@ const font = Poppins({
 });
 export default function Home() {
   return (
-    <main className="flex h-full flex-col items-center  
+    <main className="flex h-full flex-col items-center
     bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-900 to-indigo-700">
-    <div className="space-y-6">
+    <div className="space-y-6 mt-20">
     <motion.div
       initial={{ opacity: 0, scale: 0.5 }}
     animate={{ opacity: 1, scale: 1 }}
