@@ -1,4 +1,4 @@
-import NextAuth from "next-auth"
+import NextAuth, { Session } from "next-auth"
 import { UserRole } from "@prisma/client";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 
@@ -32,7 +32,7 @@ export const {
      
       if (account?.provider !== "credentials") return true;
 
-      const existingUser = await getUserById(user.id);
+      const existingUser = await getUserById(user.id || "");
 
       
       if (!existingUser?.emailVerified) return false;
@@ -50,8 +50,7 @@ export const {
 
       return true;
     },
-    async session({ session, token }) {
-   
+    async session({ session, token}: {session: Session, token?: any}) {
       if (session.user && token.provider) {
         session.user.provider = token.provider;
         console.log(session.user.provider); 
