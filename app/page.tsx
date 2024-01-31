@@ -13,9 +13,8 @@ const font = Poppins({
 });
 export default function Home() {
   return (
-    <main className="flex h-full flex-col items-center
-    bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-900 to-indigo-700">
-    <div className="space-y-6 mt-20">
+    <main className="flex h-full flex-col items-center justify-center">
+    <div className="space-y-6">
     <motion.div
       initial={{ opacity: 0, scale: 0.5 }}
     animate={{ opacity: 1, scale: 1 }}
@@ -30,7 +29,7 @@ export default function Home() {
         Servicio de autenticacion
       </h1>
       <div className="text-center">
-        <LoginButton>
+        <LoginButton mode="modal" asChild>
         <Button variant="secondary" size="xl">
           Acceder
         </Button>

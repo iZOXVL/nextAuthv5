@@ -20,6 +20,27 @@ interface CardWrapperProps{
     showSocial?: boolean;
 };
 
+
+const container = {
+    hidden: { opacity: 1, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.2
+      }
+    }
+  };
+  
+  const item = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1
+    }
+  };
+
 export const CardWrapper = ({
     children,
     headerLabel,
@@ -28,33 +49,43 @@ export const CardWrapper = ({
     showSocial
 
 }: CardWrapperProps) => {
-    return(
-    <motion.div
-    initial={{ opacity: 0, scale: 0.5 }}
-    animate={{ opacity: 1, scale: 1 }}
-    transition={{ duration: 0.5 }}
-    >
-        <Card className="w-[400px] shadow-md">
-         <CardHeader>
-          <Header label={headerLabel} />
-         </CardHeader>
-            <CardContent>
-            {children}
-            </CardContent>
-            {showSocial&& (
+    return (
+        <motion.div
+          variants={container}
+          initial="hidden"
+          animate="visible"
+        >
+          <Card className="w-[400px] shadow-2xl">
+            
+              <CardHeader>
+                <Header label={headerLabel} />
+              </CardHeader>
+            
+            
+              <CardContent>
+
+                {children}
+
+              </CardContent>
+             
+        
+            {showSocial && (
+              
                 <CardFooter>
-                    <Social>
-                      
-                    </Social>
+                  <Social />
                 </CardFooter>
+             
             )}
-            <CardFooter>
+            <motion.div variants={item}>
+              <CardFooter>
                 <BackButton
-                label={backButtonLabel}
-                href={backButtonHref}
+                  label={backButtonLabel}
+                  href={backButtonHref}
                 />
-            </CardFooter>
-        </Card>
+              </CardFooter>
+            </motion.div>
+          </Card>
         </motion.div>
-    );
-};
+      );
+    };
+    

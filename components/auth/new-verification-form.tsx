@@ -8,6 +8,7 @@ import { newVerification } from "@/actions/new-verification";
 import { CardWrapper } from "@/components/auth/card-wrapper";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
+import {motion} from "framer-motion";
 
 export const NewVerificationForm = () => {
   const [error, setError] = useState<string | undefined>();
@@ -39,6 +40,26 @@ export const NewVerificationForm = () => {
     onSubmit();
   }, [onSubmit]);
 
+  const container = {
+    hidden: { opacity: 1, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.2
+      }
+    }
+  };
+  
+  const item = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1
+    }
+  };
+
   return (
     <CardWrapper
       headerLabel="Confirmando cuenta..."
@@ -47,12 +68,16 @@ export const NewVerificationForm = () => {
     >
       <div className="flex items-center w-full justify-center">
         {!success && !error && (
+          <motion.div variants={item}>
           <BeatLoader />
+          </motion.div>
         )}
+        <motion.div variants={item}>
         <FormSuccess message={success} />
         {!success && (
           <FormError message={error} />
         )}
+        </motion.div>
       </div>
     </CardWrapper>
   )

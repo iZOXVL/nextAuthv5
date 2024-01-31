@@ -6,6 +6,7 @@ import { useState, useTransition } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { ResetSchema } from "@/schemas";
+import {motion} from "framer-motion";
 import { Input } from "@/components/ui/input";
 import {
   Form,
@@ -46,6 +47,26 @@ export const ResetForm = () => {
     });
   };
 
+  const container = {
+    hidden: { opacity: 1, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.2
+      }
+    }
+  };
+  
+  const item = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1
+    }
+  };
+
   return (
     <CardWrapper
       headerLabel="Recuperar contraseña"
@@ -63,7 +84,10 @@ export const ResetForm = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <motion.div variants={item}>
+                  <FormLabel>Correo electrónico</FormLabel>
+                  </motion.div>
+                  <motion.div variants={item}>
                   <FormControl>
                     <Input
                       {...field}
@@ -72,6 +96,7 @@ export const ResetForm = () => {
                       type="email"
                     />
                   </FormControl>
+                  </motion.div>
                   <FormMessage />
                 </FormItem>
               )}
@@ -79,6 +104,7 @@ export const ResetForm = () => {
           </div>
           <FormError message={error} />
           <FormSuccess message={success} />
+          <motion.div variants={item}>
           <Button
             disabled={isPending}
             type="submit"
@@ -86,6 +112,7 @@ export const ResetForm = () => {
           >
             Enviar correo de recuperación
           </Button>
+          </motion.div>
         </form>
       </Form>
     </CardWrapper>

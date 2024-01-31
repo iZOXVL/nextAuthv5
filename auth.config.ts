@@ -8,6 +8,8 @@ import Google from "next-auth/providers/google";
 import Spotify from "next-auth/providers/spotify";
 import Twitch from "next-auth/providers/twitch";
 import Discord from "next-auth/providers/discord";
+import Twitter from "next-auth/providers/twitter";
+import Reddit from "next-auth/providers/reddit";
 
 export default {
   providers: [
@@ -30,6 +32,14 @@ export default {
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
+    Twitter({
+      clientId: process.env.TWITTER_CLIENT_ID,
+      clientSecret: process.env.TWITTER_CLIENT_SECRET,
+    }),
+    Reddit({
+      clientId: process.env.REDDIT_CLIENT_ID,
+      clientSecret: process.env.REDDIT_CLIENT_SECRET,
     }),
     Credentials({
       async authorize(credentials){

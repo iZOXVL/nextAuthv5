@@ -5,7 +5,29 @@ import {useForm} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema } from "@/schemas";
 import { Input } from "@/components/ui/input";
+import {motion} from "framer-motion";
 import { useSearchParams } from "next/navigation";
+
+
+const container = {
+  hidden: { opacity: 1, scale: 0 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      delayChildren: 0.3,
+      staggerChildren: 0.2
+    }
+  }
+};
+
+const item = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1
+  }
+};
 
 import {
     Form,
@@ -23,8 +45,10 @@ import { FormSuccess } from "../form-success";
 import { login } from "@/actions/login";
 import Link from "next/link";
 
+
 export const LoginForm = () => {
     const searchParams = useSearchParams();
+    const callbackUrl = searchParams.get("callbackUrl");
     const urlError = searchParams.get("error") === "OAuthAccountNotLinked" ? "El correo ya está registrado con otro proveedor" : "";
     const [showTwoFactor, setShowTwoFactor] = useState(false);
     const [error, setError] = useState<string | undefined>("");
@@ -46,7 +70,7 @@ export const LoginForm = () => {
 
 
         startTransition(() => {
-            login(values)
+            login(values, callbackUrl)
             .then((data) => {
                if(data?.error){
                 form.reset();
@@ -82,8 +106,12 @@ export const LoginForm = () => {
                 control={form.control}
                 name="code"
                 render={({ field }) => (
+                
                   <FormItem>
+                    <motion.div variants={item}>
                     <FormLabel>Codigo de verificacion</FormLabel>
+                    </motion.div>
+                    <motion.div variants={item}>
                     <FormControl>
                       <Input
                         {...field}
@@ -91,6 +119,7 @@ export const LoginForm = () => {
                         placeholder="123456"
                       />
                     </FormControl>
+                    </motion.div>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -102,8 +131,12 @@ export const LoginForm = () => {
                   control={form.control}
                   name="email"
                   render={({ field }) => (
+                    
                     <FormItem>
+                      <motion.div variants={item}>
                       <FormLabel>Correo electrónico</FormLabel>
+                      </motion.div>
+                      <motion.div variants={item}>
                       <FormControl>
                         <Input
                           {...field}
@@ -112,8 +145,12 @@ export const LoginForm = () => {
                           type="email"
                         />
                       </FormControl>
+                      </motion.div>
+                     
                       <FormMessage />
+                     
                     </FormItem>
+                  
                   )}
                 />
                 <FormField
@@ -121,7 +158,10 @@ export const LoginForm = () => {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
+                        <motion.div variants={item}>
                       <FormLabel>Contraseña</FormLabel>
+                      </motion.div>
+                      <motion.div variants={item}>
                       <FormControl>
                         <Input
                           {...field}
@@ -130,6 +170,8 @@ export const LoginForm = () => {
                           type="password"
                         />
                       </FormControl>
+                      </motion.div>
+                      <motion.div variants={item}>
                       <Button
                         size="sm"
                         variant="link"
@@ -140,7 +182,10 @@ export const LoginForm = () => {
                           No recuerdas tu contraseña?
                         </Link>
                       </Button>
+                      </motion.div>
+                      
                       <FormMessage />
+                      
                     </FormItem>
                   )}
                 />
@@ -148,8 +193,10 @@ export const LoginForm = () => {
           )}
          
         </div>
+        
         <FormError message={error || urlError}/>
         <FormSuccess message={success}/>
+        <motion.div variants={item}>
         <Button
         disabled={isPending}
         typeof="submit"
@@ -157,6 +204,7 @@ export const LoginForm = () => {
         >
              {showTwoFactor ? "Autorizar" : "Entrar"}
         </Button>
+        </motion.div>
         </form>
        </Form>
        </CardWrapper>

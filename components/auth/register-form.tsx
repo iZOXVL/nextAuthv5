@@ -5,6 +5,7 @@ import {useForm} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterSchema } from "@/schemas";
 import { Input } from "@/components/ui/input";
+import {motion} from "framer-motion";
 import {
     Form,
     FormControl,
@@ -13,6 +14,8 @@ import {
     FormLabel,
     FormMessage
 } from "@/components/ui/form";
+
+
 
 import { CardWrapper } from "@/components/auth/card-wrapper";
 import { Button } from "@/components/ui/button";
@@ -33,6 +36,28 @@ export const RegisterForm = () => {
             name: "",
         },
     });
+
+
+    const container = {
+        hidden: { opacity: 1, scale: 0 },
+        visible: {
+          opacity: 1,
+          scale: 1,
+          transition: {
+            delayChildren: 0.3,
+            staggerChildren: 0.2
+          }
+        }
+      };
+      
+      const item = {
+        hidden: { y: 20, opacity: 0 },
+        visible: {
+          y: 0,
+          opacity: 1
+        }
+      };
+      
 
     const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
 
@@ -68,7 +93,10 @@ export const RegisterForm = () => {
         name="name"
         render={({ field }) => (
             <FormItem>
+            <motion.div variants={item}>
             <FormLabel>Nombre</FormLabel>
+            </motion.div>
+            <motion.div variants={item}>
             <FormControl>
                 <Input
                 {...field}
@@ -77,6 +105,7 @@ export const RegisterForm = () => {
                 type="text"
                 />
             </FormControl>
+            </motion.div>
             <FormMessage {...field}/>  
             </FormItem>
         )}
@@ -87,7 +116,10 @@ export const RegisterForm = () => {
         name="email"
         render={({ field }) => (
             <FormItem>
+                <motion.div variants={item}>
             <FormLabel>Correo electrónico</FormLabel>
+            </motion.div>
+            <motion.div variants={item}>
             <FormControl>
                 <Input
                 {...field}
@@ -96,6 +128,7 @@ export const RegisterForm = () => {
                 type="email"
                 />
             </FormControl>
+            </motion.div>
             <FormMessage {...field}/>  
             </FormItem>
         )}
@@ -107,7 +140,10 @@ export const RegisterForm = () => {
         name="password"
         render={({ field }) => (
             <FormItem>
+                <motion.div variants={item}>
             <FormLabel>Contraseña</FormLabel>
+            </motion.div>
+            <motion.div variants={item}>
             <FormControl>
                 <Input
                 {...field}
@@ -116,6 +152,7 @@ export const RegisterForm = () => {
                 type="password"
                 />
             </FormControl>
+            </motion.div>
             <FormMessage {...field}/>  
             </FormItem>
         )}
@@ -123,6 +160,7 @@ export const RegisterForm = () => {
         </div>
         <FormError message={error}/>
         <FormSuccess message={success}/>
+        <motion.div variants={item}>
         <Button
         disabled={isPending}
         typeof="submit"
@@ -130,6 +168,7 @@ export const RegisterForm = () => {
         >
             Crear cuenta
         </Button>
+        </motion.div>
         </form>
        </Form>
        </CardWrapper>
